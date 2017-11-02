@@ -1,0 +1,19 @@
+{
+  "name": "schedule-generator",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "material-ui": "^1.0.0-beta.19",
+    "moment": "^2.19.1",
+    "react": "^16.0.0",
+    "react-big-calendar": "^0.17.0",
+    "react-dom": "^16.0.0",
+    "react-scripts": "1.0.16"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
