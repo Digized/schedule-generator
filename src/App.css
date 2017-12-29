@@ -1,0 +1,19 @@
+body {
+    background-color: #f2f2f2;
+}
+.control {
+    width: 30%;
+    margin: 20px;
+    float: left;
+    height: 95vh;
+}
+
+.calendar {
+    height: 100vh;
+}
+
+h1 {
+    font-family: Roboto, Helvetica, sans-serif;
+    font-size: 34pt;
+    color: #8f001a;
+}

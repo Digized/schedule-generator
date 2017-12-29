@@ -100,11 +100,9 @@ class SectionTree {
                         times.push({ day: activeNode.elem.day, startHour, startMin, endHour, endMin });
                         return;
                     } else {
-                        console.log("deleting", leaf);
                         leaf.parent.children.splice(leaf.parent.children.indexOf(leaf), 1);
                         leaf.parent = null;
                         object.splice(index, 1);
-                        console.log("deleted", leaf);
                     }
 
                 });
@@ -169,7 +167,6 @@ export default class ScheduleTree {
         this.schedules = [];
         courses.forEach(course => {
             if (course.fail === true) {
-                console.log("Unable to retrieve course");
                 return;
             }
 
@@ -199,7 +196,6 @@ export default class ScheduleTree {
         const leaves = activeNode;
 
         let myLeaves = leaves;
-        console.log(leaves);
         for (let i = 0; i < leaves.length; i++) {
             let leaf = leaves[i];
             let currNode = leaf;
@@ -209,17 +205,14 @@ export default class ScheduleTree {
                     if (times[`${comb.day}${comb.start}`] === undefined) {
                         times[`${comb.day}${comb.start}`] = comb; // eslint-disable-line no-loop-func
                     } else {
-                        debugger;
                         myLeaves[myLeaves.indexOf(leaf)] = null;
                     }
                 });
                 currNode = currNode.parent;
             }
-            console.log(times);
 
         }
         myLeaves = myLeaves.filter(n => n);
-        console.log(myLeaves);
         this.schedules = myLeaves;
     }
 

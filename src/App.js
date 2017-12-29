@@ -8,8 +8,8 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Control />
-        <Calendar />
+        <Control className="control"/>
+        <Calendar className="calendar" />
       </div>
     );
   }

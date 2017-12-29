@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import Select from 'react-select';
-import 'react-select/dist/react-select.css';
+import './Control.css';
 import course from '../schedules/schedules_winter_2018_final.json';
-import {store} from '../store';
+import { store } from '../store';
+import "./helpers/NewTree";
 
 
 const options = [];
 export default class Control extends Component {
 
-  constructor(){
+  constructor() {
     super();
     this.state = {
       value: []
@@ -16,7 +17,7 @@ export default class Control extends Component {
 
   }
 
-  componentDidMount(){
+  componentDidMount() {
 
     course.courses.forEach(course => {
       options.push(
@@ -26,28 +27,32 @@ export default class Control extends Component {
         }
       )
     });
-    
+
   }
 
-  handleSelectChange (value) {
+  handleSelectChange(value) {
     store.dispatch({
       type: "Update",
-      courses: value.split(",")});
-		this.setState({ value });
+      courses: value.split(",")
+    });
+    this.setState({ value });
   }
 
 
   render() {
     const value = this.state.value;
     return (
-      <Select
-      multi
-      onChange={(val) => this.handleSelectChange(val)}
-      options={options}
-      placeholder="Select your favourite(s)"
-      simpleValue
-      value={value}
-      />
+      <div className={this.props.className}>
+        <h1> uOttawa Course Schedule Generator</h1>
+        <Select
+          multi
+          onChange={(val) => this.handleSelectChange(val)}
+          options={options}
+          placeholder="Select Course(s)"
+          simpleValue
+          value={value}
+        />
+      </div>
     )
   }
 }
