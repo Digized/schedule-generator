@@ -3,7 +3,7 @@ import Select from 'react-select';
 import './Control.css';
 import course from '../schedules/schedules_winter_2018_final.json';
 import { store } from '../store';
-import "./helpers/NewTree";
+import "./helpers/Tree";
 
 
 const options = [];
@@ -44,14 +44,16 @@ export default class Control extends Component {
     return (
       <div className={this.props.className}>
         <h1> uOttawa Course Schedule Generator</h1>
-        <Select
-          multi
-          onChange={(val) => this.handleSelectChange(val)}
-          options={options}
-          placeholder="Select Course(s)"
-          simpleValue
-          value={value}
-        />
+        <div>
+          <Select
+            multi
+            onChange={(val) => this.handleSelectChange(val)}
+            options={options}
+            placeholder="Select Course(s)"
+            simpleValue
+            value={value}
+          />
+        </div>
       </div>
     )
   }

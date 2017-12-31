@@ -2,7 +2,7 @@ import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
 import React from "react";
 import { week } from "./constants";
-import ScheduleTree from './helpers/NewTree';
+import ScheduleTree from './helpers/Tree';
 import "./Calendar.css"
 import Courses from '../schedules/schedules_winter_2018_final.json';
 import { store } from '../store';
@@ -17,8 +17,8 @@ export default class ScheduleCalendar extends React.Component {
             scheduleCombinations: [],
             num: 0,
             courses: []
-        }
-        store.subscribe(() => this.update())
+        };
+        store.subscribe(() => this.update());
         this.update();
     }
 
@@ -29,39 +29,59 @@ export default class ScheduleCalendar extends React.Component {
             const c = Courses.courses.find((obj) => obj.course_code === course);
             c && selectedCourses.push(c);
         });
-        
+
         const schedules = selectedCourses.length > 0 && (new ScheduleTree(selectedCourses)).calendarify();
         this.setState({
-            scheduleCombinations : schedules,
+            scheduleCombinations: schedules,
             num: 0
         });
     }
 
     handleRangeChange(event) {
-        console.log(this.state.scheduleCombinations, event.target.value);
-        this.setState({num: event.target.value});
+        console.log(this.state.scheduleCombinations, event.target.type);
+        let val = event.target.value ;
+        if(event.target.type === "number") val--;
+        this.setState({ num: val});
     }
+
+    showSlider() {
+        if (this.state.scheduleCombinations && this.state.scheduleCombinations.length > 0) {
+            return (
+                <div className="space-bottom">
+                    <input type="range" className="slider" min="0" defaultValue="0" value={this.state.num} max={this.state.scheduleCombinations.length-1} onChange={val => this.handleRangeChange(val)}></input>
+                    <input type="number" className="slider-n" min="1" defaultValue="1" value={(parseInt(this.state.num,10) + 1)} max={this.state.scheduleCombinations.length} onChange={val=> this.handleRangeChange(val)}></input> / {this.state.scheduleCombinations.length}
+                </div>
+            )
+        }
+        else {
+            return (
+                <div className="space-bottom">
+                    Please Select Courses 🙂 
+                </div>
+            )
+        }
+    }
+
 
     render() {
         return (
-            <div className={this.props.className}>
-                <BigCalendar
-                    events={this.state.scheduleCombinations.length > 0 ? this.state.scheduleCombinations[this.state.num] : [] }
-                    min={week.day("Monday").hour(8).minute(30).toDate()}
-                    max={week.day("Monday").hour(22).minute(0).toDate()}
-                    defaultDate={week.toDate()}
-                    defaultView='work_week' 
-                    views={{ work_week: true }}
-                    timeslots={3}
-                    selectable='ignoreEvents'
-                    toolbar={false}
-                />
-                <div>
-                    <input type="range" min="0" max={this.state.scheduleCombinations.length-1} step="1" onChange={val => this.handleRangeChange(val)} />
-                    {`${this.state.num} / ${this.state.scheduleCombinations.length}`}
+            <div className="calendar-container">
+                {this.showSlider()}
+                <div className="calendar">
+                    <BigCalendar
+                        events={this.state.scheduleCombinations.length > 0 ? this.state.scheduleCombinations[this.state.num] : []}
+                        min={week.day("Monday").hour(8).minute(30).toDate()}
+                        max={week.day("Monday").hour(22).minute(0).toDate()}
+                        defaultDate={week.toDate()}
+                        defaultView='work_week'
+                        views={{ work_week: true }}
+                        timeslots={3}
+                        selectable='ignoreEvents'
+                        toolbar={false}
+                    />
                 </div>
             </div>
         )
-    } 
+    }
 }
 

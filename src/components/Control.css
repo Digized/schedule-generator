@@ -371,11 +371,6 @@
   }
   .Select--multi .Select-value-icon {
     cursor: pointer;
-    border-bottom-left-radius: 2px;
-    border-top-left-radius: 2px;
-    border-right: 1px solid #c2e0ff;
-    /* Fallback color for IE 8 */
-    border-right: 1px solid rgba(0, 126, 255, 0.24);
     padding: 1px 5px 3px;
   }
   .Select--multi .Select-value-icon:hover,
@@ -424,4 +419,3 @@
       -webkit-transform: rotate(1turn);
     }
   }
-  
