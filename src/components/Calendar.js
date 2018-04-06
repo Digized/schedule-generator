@@ -1,25 +1,20 @@
-import BigCalendar from 'react-big-calendar';
-import moment from 'moment';
 import React from "react";
-import { week } from "./constants";
 import ScheduleTree from './helpers/Tree';
 import "./Calendar.css"
 import Courses from '../schedules/schedules_winter_2018_final.json';
 import { store } from '../store';
 
 
-BigCalendar.momentLocalizer(moment);
 export default class ScheduleCalendar extends React.Component {
 
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
             scheduleCombinations: [],
             num: 0,
             courses: []
         };
         store.subscribe(() => this.update());
-        this.update();
     }
 
     update() {
@@ -38,25 +33,24 @@ export default class ScheduleCalendar extends React.Component {
     }
 
     handleRangeChange(event) {
-        console.log(this.state.scheduleCombinations, event.target.type);
-        let val = event.target.value ;
-        if(event.target.type === "number") val--;
-        this.setState({ num: val});
+        let val = event.target.value;
+        if (event.target.type === "number") val--;
+        this.setState({ num: val });
     }
 
     showSlider() {
         if (this.state.scheduleCombinations && this.state.scheduleCombinations.length > 0) {
             return (
                 <div className="space-bottom">
-                    <input type="range" className="slider" min="0" defaultValue="0" value={this.state.num} max={this.state.scheduleCombinations.length-1} onChange={val => this.handleRangeChange(val)}></input>
-                    <input type="number" className="slider-n" min="1" defaultValue="1" value={(parseInt(this.state.num,10) + 1)} max={this.state.scheduleCombinations.length} onChange={val=> this.handleRangeChange(val)}></input> / {this.state.scheduleCombinations.length}
+                    <input type="range" className="slider" min="0" value={this.state.num} max={this.state.scheduleCombinations.length - 1} onChange={val => this.handleRangeChange(val)}></input>
+                    <input type="number" className="slider-n" min="1" value={(parseInt(this.state.num, 10) + 1)} max={this.state.scheduleCombinations.length} onChange={val => this.handleRangeChange(val)}></input> / {this.state.scheduleCombinations.length}
                 </div>
             )
         }
         else {
             return (
                 <div className="space-bottom">
-                    Please Select Courses 🙂 
+                    Please Select Courses <span role="img" aria-label="smiley-face"> 🙂 </span> 
                 </div>
             )
         }
@@ -68,20 +62,45 @@ export default class ScheduleCalendar extends React.Component {
             <div className="calendar-container">
                 {this.showSlider()}
                 <div className="calendar">
-                    <BigCalendar
-                        events={this.state.scheduleCombinations.length > 0 ? this.state.scheduleCombinations[this.state.num] : []}
-                        min={week.day("Monday").hour(8).minute(30).toDate()}
-                        max={week.day("Monday").hour(22).minute(0).toDate()}
-                        defaultDate={week.toDate()}
-                        defaultView='work_week'
-                        views={{ work_week: true }}
-                        timeslots={3}
-                        selectable='ignoreEvents'
-                        toolbar={false}
-                    />
+                    <CCalendar schedules={this.state.scheduleCombinations[this.state.num]} />
                 </div>
             </div>
         )
+    }
+}
+
+class CCalendar extends React.Component {
+    render() {
+        return (
+            <table>
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th>Monday</th>
+                        <th>Tuesday</th>
+                        <th>Wednesday</th>
+                        <th>Thursday</th>
+                        <th>Friday</th>
+                    </tr>
+                    {this.createTables()}
+                </tbody>
+            </table>
+        );
+    }
+
+    createTables() {
+        const times = ["8:30", "10:00", "11:30", "13:00", "14:30", "16:00", "17:30", "19:00", "20:30"]
+        const rows = [];
+        times.forEach(time => {
+            const columns = [<td key={time}>{time}</td>];
+            ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"].forEach(day => {
+                columns.push(<td key={""+time+day}>{(this.props.schedules && this.props.schedules[time][day] && this.props.schedules[time][day].title) || ""}</td>);
+            })
+
+            rows.push( <tr key={time}>{columns}</tr>)
+        });
+
+        return rows;
     }
 }
 

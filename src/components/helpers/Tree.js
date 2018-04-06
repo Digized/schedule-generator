@@ -1,4 +1,3 @@
-import { week } from "../constants";
 class Node {
     constructor(elem) {
         this.elem = elem;
@@ -13,7 +12,8 @@ class Tree {
         this.leaves = [];
         this._leaves = [];
     }
-    print(level,root) {
+
+    print(level, root) {
         let s = "";
         for (let i = 1; i < level; i++) {
             s += "\t\t"
@@ -71,8 +71,8 @@ class SectionTree extends Tree {
         this.activitySegregation = [];
         this.root = new Node(section.section);
         this.activities = section.activities;
-        const meta = {"courseCode":course.course_code, "courseName":course.course_title, "professor": section.professor || "boobies", "section":section.section};
-        this.activities.forEach(activity => {activity.meta = meta});
+        const meta = { "courseCode": course.course_code, "courseName": course.course_title, "professor": section.professor || "boobies", "section": section.section };
+        this.activities.forEach(activity => { activity.meta = meta });
         this.generateActivityTypes();
         this.makeTree();
         this.verifyAndDelete();
@@ -154,9 +154,6 @@ class ScheduleTree extends Tree {
 
         this.generateTree();
         this.verifyAndDelete();
-        this.print(0, this.root);
-        // console.log("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
-
     }
 
     generateTree() {
@@ -177,19 +174,15 @@ class ScheduleTree extends Tree {
         this._leaves = actveNodes;
     }
 
-    calendarify(){
+    calendarify() {
         const schedules = [];
         this.leaves.forEach(leaf => {
             let actveNode = leaf;
-            const schedule = [];
-            while(actveNode !== this.root){
-                let [startHour, startMin] = actveNode.elem.start.split(":").map(Number);
-                let [endHour, endMin] = actveNode.elem.end.split(":").map(Number);
-                schedule.push({
-                    start:week.day(actveNode.elem.day).hour(startHour).minute(startMin).toDate(),
-                    end:week.day(actveNode.elem.day).hour(endHour).minute(endMin).toDate(),
-                    title: `${actveNode.elem.activity} | ${actveNode.elem.meta.professor} | ${actveNode.elem.location} | ${actveNode.elem.meta.section} | ${actveNode.elem.meta.courseName}`
-                });
+            const schedule = { "8:30": {}, "10:00": {}, "11:30": {}, "13:00": {}, "14:30": {}, "16:00": {}, "17:30": {}, "19:00": {}, "20:30": {} }
+            while (actveNode !== this.root) {
+                schedule[actveNode.elem.start][actveNode.elem.day] = {
+                    title: actveNode.elem.meta.courseName
+                }
                 actveNode = actveNode.parent;
             }
             schedules.push(schedule);
