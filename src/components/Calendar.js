@@ -4,7 +4,7 @@ import React from "react";
 import { week } from "./constants";
 import ScheduleTree from './helpers/Tree';
 import "./Calendar.css"
-import Courses from '../schedules/schedules_winter_2018_final.json';
+import Courses from '../schedules/schedules_fall_2018.json';
 import { store } from '../store';
 
 

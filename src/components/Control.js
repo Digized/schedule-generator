@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Select from 'react-select';
 import './Control.css';
-import course from '../schedules/schedules_winter_2018_final.json';
+import course from '../schedules/schedules_fall_2018.json';
 import { store } from '../store';
 import "./helpers/Tree";
 
