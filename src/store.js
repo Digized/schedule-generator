@@ -1,10 +1,22 @@
-import {createStore} from 'redux';
+import { createStore } from 'redux';
 
 const reducer = (state, action) => {
-    if(state === undefined) {
-        return [];
+    const res = { courses: [], mode: 0 }; //0 fall, 1 winter
+    if (state === undefined) {
+        return res;
     }
-    return action.courses;
+    res.courses = state.courses;
+    res.mode = state.mode;
+    if (action.type === "UPDATE"){
+        res.courses = action.courses;
+    }
+
+    if(action.type === "MODE"){ 
+        res.courses = [];
+        res.mode = action.mode;
+    }
+
+    return res;
 }
 
 export const store = createStore(reducer);

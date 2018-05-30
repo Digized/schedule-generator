@@ -4,7 +4,7 @@ import React from "react";
 import { week } from "./constants";
 import ScheduleTree from './helpers/Tree';
 import "./Calendar.css"
-import Courses from '../schedules/schedules_fall_2018.json';
+import Courses from './helpers/CourseMapper'
 import { store } from '../store';
 
 
@@ -16,20 +16,26 @@ export default class ScheduleCalendar extends React.Component {
         this.state = {
             scheduleCombinations: [],
             num: 0,
-            courses: []
+            courses: [],
+            mode:0
         };
         store.subscribe(() => this.update());
+    }
+
+    componentDidMount(){
         this.update();
     }
 
     update() {
-        const courses = store.getState();
+        const gState = store.getState();
+        console.log(gState);
         const selectedCourses = [];
-        courses.forEach(course => {
-            const c = Courses.courses.find((obj) => obj.course_code === course);
+        gState.courses.forEach(course => {
+            const c = Courses[gState.mode].courses.find((obj) => obj.course_code === course);
             c && selectedCourses.push(c);
         });
 
+        console.log(selectedCourses);
         const schedules = selectedCourses.length > 0 && (new ScheduleTree(selectedCourses)).calendarify();
         this.setState({
             scheduleCombinations: schedules,
@@ -38,7 +44,6 @@ export default class ScheduleCalendar extends React.Component {
     }
 
     handleRangeChange(event) {
-        console.log(this.state.scheduleCombinations, event.target.type);
         let val = event.target.value ;
         if(event.target.type === "number") val--;
         this.setState({ num: val});
@@ -48,15 +53,15 @@ export default class ScheduleCalendar extends React.Component {
         if (this.state.scheduleCombinations && this.state.scheduleCombinations.length > 0) {
             return (
                 <div className="space-bottom">
-                    <input type="range" className="slider" min="0" defaultValue="0" value={this.state.num} max={this.state.scheduleCombinations.length-1} onChange={val => this.handleRangeChange(val)}></input>
-                    <input type="number" className="slider-n" min="1" defaultValue="1" value={(parseInt(this.state.num,10) + 1)} max={this.state.scheduleCombinations.length} onChange={val=> this.handleRangeChange(val)}></input> / {this.state.scheduleCombinations.length}
+                    <input type="range" className="slider" min="0"  value={this.state.num} max={this.state.scheduleCombinations.length-1} onChange={val => this.handleRangeChange(val)}></input>
+                    <input type="number" className="slider-n" min="1"  value={(parseInt(this.state.num,10) + 1)} max={this.state.scheduleCombinations.length} onChange={val=> this.handleRangeChange(val)}></input> / {this.state.scheduleCombinations.length}
                 </div>
             )
         }
         else {
             return (
                 <div className="space-bottom">
-                    Please Select Courses 🙂 
+                    Please Select Courses <span role="img" aria-label="smiley face">🙂</span> 
                 </div>
             )
         }
