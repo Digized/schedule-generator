@@ -13,12 +13,12 @@ export default class ScheduleCalendar extends React.Component {
             scheduleCombinations: [],
             num: 0,
             courses: [],
-            mode:0
+            mode: 0
         };
         store.subscribe(() => this.update());
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.update();
     }
 
@@ -57,7 +57,7 @@ export default class ScheduleCalendar extends React.Component {
         else {
             return (
                 <div className="space-bottom">
-                    Please Select Courses <span role="img" aria-label="smiley-face"> 🙂 </span> 
+                    Please Select Courses <span role="img" aria-label="smiley-face"> 🙂 </span>
                 </div>
             )
         }
@@ -69,20 +69,20 @@ export default class ScheduleCalendar extends React.Component {
             <div className="calendar-container">
                 {this.showSlider()}
                 <div className="calendar">
-                    <CCalendar schedules={this.state.scheduleCombinations[this.state.num]} />
+                    <Calendar schedules={this.state.scheduleCombinations[this.state.num]} />
                 </div>
             </div>
         )
     }
 }
 
-class CCalendar extends React.Component {
+class Calendar extends React.Component {
     render() {
         return (
             <table>
                 <tbody>
                     <tr>
-                        <th></th>
+                        <th className="time" ></th>
                         <th>Monday</th>
                         <th>Tuesday</th>
                         <th>Wednesday</th>
@@ -99,15 +99,38 @@ class CCalendar extends React.Component {
         const times = ["8:30", "10:00", "11:30", "13:00", "14:30", "16:00", "17:30", "19:00", "20:30"]
         const rows = [];
         times.forEach(time => {
-            const columns = [<td key={time}>{time}</td>];
+            const columns = [<td className="time" key={time}>{time}</td>];
             ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"].forEach(day => {
-                columns.push(<td key={""+time+day}>{(this.props.schedules && this.props.schedules[time][day] && this.props.schedules[time][day].title) || ""}</td>);
+
+                columns.push(
+                    <td key={"" + time + day}>
+                        <CalendarItem elem={(this.props.schedules && this.props.schedules[time][day]) || ""} />
+                    </td>
+                );
             })
 
-            rows.push( <tr key={time}>{columns}</tr>)
+            rows.push(<tr key={time}>{columns}</tr>)
         });
 
         return rows;
     }
 }
 
+
+class CalendarItem extends React.Component {
+    render() {
+        if(this.props.elem)
+        return (
+            <div className="calendar-item" style={{ backgroundColor: this.props.elem.color || "" }}>
+                {this.props.elem.courseCode || ""}
+                {this.props.elem && <div className="hover-field">{this.props.elem.title}</div>}
+            </div>
+        );
+        else {
+            return (
+                <div>
+                </div>
+            );
+        }
+    }
+}

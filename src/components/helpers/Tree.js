@@ -71,12 +71,15 @@ class SectionTree extends Tree {
         this.activitySegregation = [];
         this.root = new Node(section.section);
         this.activities = section.activities;
-        const meta = { "courseCode": course.course_code, "courseName": course.course_title, "professor": section.professor || "boobies", "section": section.section };
+        const meta = { "courseCode": course.course_code, "courseName": course.course_title, "professor": section.professor, "section": section.section, color: generateColor(course.course_code) };
         this.activities.forEach(activity => { activity.meta = meta });
         this.generateActivityTypes();
         this.makeTree();
         this.verifyAndDelete();
     }
+
+
+
 
     generateActivityTypes() {
         const activityTypes = [];
@@ -184,7 +187,9 @@ class ScheduleTree extends Tree {
             const schedule = { "8:30": {}, "10:00": {}, "11:30": {}, "13:00": {}, "14:30": {}, "16:00": {}, "17:30": {}, "19:00": {}, "20:30": {} }
             while (actveNode !== this.root) {
                 schedule[actveNode.elem.start][actveNode.elem.day] = {
-                    title: actveNode.elem.meta.courseName
+                    title: actveNode.elem.meta.courseName,
+                    color: actveNode.elem.meta.color,
+                    courseCode:actveNode.elem.meta.courseCode
                 }
                 actveNode = actveNode.parent;
             }
@@ -193,6 +198,19 @@ class ScheduleTree extends Tree {
 
         return schedules;
     }
+}
+
+const letters = ['7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'];
+
+function generateColor(val) {
+    // let n = 0;
+    // for (let i = 0; i < val.length; i++) {
+    //      n = val.charAt(i)
+    // }
+    const redInt = (val.charCodeAt(1) +val.charCodeAt(2)) % 9;
+    const greenInt = (val.charCodeAt(3) +val.charCodeAt(4)) % 9;
+    const blueInt = (val.charCodeAt(5) +val.charCodeAt(6)) % 9;
+    return `#${letters[redInt]}${letters[greenInt]}${letters[blueInt]}`
 }
 
 export default ScheduleTree;
