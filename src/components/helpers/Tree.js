@@ -154,6 +154,9 @@ class ScheduleTree extends Tree {
 
         this.generateTree();
         this.verifyAndDelete();
+        // this.print(0, this.root);
+        // console.log("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
+
     }
 
     generateTree() {

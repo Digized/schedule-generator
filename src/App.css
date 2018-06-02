@@ -36,6 +36,14 @@ h1 {
     color: #8f001a;
 }
 
+h2 {
+  font-family: Roboto, Helvetica, sans-serif;
+    font-size: 16pt;
+    font-weight: lighter;
+    color: #6e6e6e;
+    margin: 0;
+}
+
 .grid-container{
     display: grid;
     grid-template-columns: 30% 70%;
@@ -129,3 +137,42 @@ input[type=range].slider {
     background: rgba(255, 255, 255, 0.78);
   }
   
+  
+input[type="radio"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  border-radius: 15%;
+  width: 20px;
+  height: 20px;
+  background-color: #ffffff;
+  border: 2px solid #8f001a;
+  transition: 0.2s all linear;
+  outline: none;
+  margin-right: 5px;
+
+  position: relative;
+  top: 5px;
+}
+
+input[type="radio"]:hover {
+  background-color: #8f001a;
+}
+input[type="radio"]:checked {
+  background-color: #8f001a;
+  width: 50px;
+}
+
+input[type="radio"] + label {
+  color: #8f001a;
+
+}
+
+input[type="radio"]:checked + label {
+  font-weight: bold;
+}
+
+input[type="radio"]:hover + label{
+  font-weight: bold;
+}

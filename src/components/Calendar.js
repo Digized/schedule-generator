@@ -1,7 +1,7 @@
 import React from "react";
 import ScheduleTree from './helpers/Tree';
 import "./Calendar.css"
-import Courses from '../schedules/schedules_winter_2018_final.json';
+import Courses from './helpers/CourseMapper'
 import { store } from '../store';
 
 
@@ -12,19 +12,26 @@ export default class ScheduleCalendar extends React.Component {
         this.state = {
             scheduleCombinations: [],
             num: 0,
-            courses: []
+            courses: [],
+            mode:0
         };
         store.subscribe(() => this.update());
     }
 
+    componentDidMount(){
+        this.update();
+    }
+
     update() {
-        const courses = store.getState();
+        const gState = store.getState();
+        console.log(gState);
         const selectedCourses = [];
-        courses.forEach(course => {
-            const c = Courses.courses.find((obj) => obj.course_code === course);
+        gState.courses.forEach(course => {
+            const c = Courses[gState.mode].courses.find((obj) => obj.course_code === course);
             c && selectedCourses.push(c);
         });
 
+        console.log(selectedCourses);
         const schedules = selectedCourses.length > 0 && (new ScheduleTree(selectedCourses)).calendarify();
         this.setState({
             scheduleCombinations: schedules,
