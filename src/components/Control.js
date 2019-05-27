@@ -41,11 +41,10 @@ export default class Control extends Component {
       type: "UPDATE",
       courses: value.split(",")
     });
-    this.setState({ value:value });
+    this.setState({ value: value });
   }
 
   handleSwitchChange(val) {
-    console.log(val);
     store.dispatch({
       type: "MODE",
       mode: val
@@ -65,11 +64,11 @@ export default class Control extends Component {
             <h2>Select Term:</h2>
             <input type="radio" id="Fall"
               name="mode" value="0" defaultChecked onChange={() => this.handleSwitchChange(0)} />
-            <label htmlFor="Fall">Fall 2018</label>
+            <label htmlFor="Fall">Fall 2019</label>
             <br />
             <input type="radio" id="Winter"
               name="mode" value="1" onChange={() => this.handleSwitchChange(1)} />
-            <label htmlFor="Winter">Winter 2019</label>
+            <label htmlFor="Winter">Winter 2020</label>
           </div>
           <br />
           <Select

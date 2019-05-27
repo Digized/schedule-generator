@@ -71,7 +71,7 @@ class SectionTree extends Tree {
         this.activitySegregation = [];
         this.root = new Node(section.section);
         this.activities = section.activities;
-        const meta = {"courseCode":course.course_code, "courseName":course.course_title, "professor": section.professor || "boobies", "section":section.section};
+        const meta = {"courseCode":course.course_code, "courseName":course.course_title, "professor": section.professor || "", "section":section.section};
         this.activities.forEach(activity => {activity.meta = meta});
         this.generateActivityTypes();
         this.makeTree();

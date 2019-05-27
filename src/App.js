@@ -10,7 +10,7 @@ class App extends Component {
       <div className="grid-container">
         <Control className="control"/>
         <Calendar className="calendar" />
-        {console.log("%cHey, thanks for using the app. Want to make it better? https://github.com/no-fancy-algorithms/schedule-generator 😉", "background: linear-gradient(red,blue);display:block;color:white;font-size:20pt;")}
+        {console.log("%cHey, thanks for using the app. Want to make it better? https://github.com/digized/schedule-generator 😉", "background: linear-gradient(red,blue);display:block;color:white;font-size:20pt;")}
       </div>
     );
   }

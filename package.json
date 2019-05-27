@@ -9,7 +9,7 @@
     "react-big-calendar": "^0.17.0",
     "react-dom": "^16.3.2",
     "react-redux": "^5.0.7",
-    "react-scripts": "1.0.16",
+    "react-scripts": "^3.0.1",
     "react-select": "^1.2.1",
     "redux": "^3.7.2"
   },
@@ -22,6 +22,18 @@
     "deploy": "gh-pages -d build"
   },
   "devDependencies": {
-    "gh-pages": "^1.0.0"
+    "gh-pages": "^2.0.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
