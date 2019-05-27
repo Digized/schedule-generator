@@ -1,6 +1,15 @@
 {
-  "main.css": "static/css/main.257c3f11.css",
-  "main.css.map": "static/css/main.257c3f11.css.map",
-  "main.js": "static/js/main.675ed7cb.js",
-  "main.js.map": "static/js/main.675ed7cb.js.map"
+  "files": {
+    "main.css": "/schedule-generator/static/css/main.4c8ace39.chunk.css",
+    "main.js": "/schedule-generator/static/js/main.817b82e1.chunk.js",
+    "main.js.map": "/schedule-generator/static/js/main.817b82e1.chunk.js.map",
+    "runtime~main.js": "/schedule-generator/static/js/runtime~main.5b745f82.js",
+    "runtime~main.js.map": "/schedule-generator/static/js/runtime~main.5b745f82.js.map",
+    "static/js/2.ef4294e5.chunk.js": "/schedule-generator/static/js/2.ef4294e5.chunk.js",
+    "static/js/2.ef4294e5.chunk.js.map": "/schedule-generator/static/js/2.ef4294e5.chunk.js.map",
+    "index.html": "/schedule-generator/index.html",
+    "precache-manifest.adf7b0e78e60ddf622e7de0c8cf235cf.js": "/schedule-generator/precache-manifest.adf7b0e78e60ddf622e7de0c8cf235cf.js",
+    "service-worker.js": "/schedule-generator/service-worker.js",
+    "static/css/main.4c8ace39.chunk.css.map": "/schedule-generator/static/css/main.4c8ace39.chunk.css.map"
+  }
 }
